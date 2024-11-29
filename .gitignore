@@ -1,0 +1,24 @@
+# Abaikan file hasil log atau laporan Newman
+newman-report/
+*.json
+*.html
+*.xml
+
+# Abaikan file atau folder yang dihasilkan oleh GitHub Actions (misalnya, folder build atau temp)
+.github/
+.vscode/
+
+# Abaikan file environment yang bersifat pribadi
+.env
+
+# Abaikan file temporary atau cache
+*.log
+*.tmp
+.DS_Store
+
+# Abaikan folder node_modules (jika menggunakan Node.js atau NPM untuk menjalankan Newman)
+node_modules/
+
+# Abaikan file sementara sistem (contoh untuk macOS, bisa disesuaikan untuk OS lain)
+Thumbs.db
+Desktop.ini
