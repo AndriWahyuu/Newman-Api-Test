@@ -1,31 +1,24 @@
 name: Newman API Tests
-
 on:
-  push:
-    branches:
-      - main  # Workflow ini akan dijalankan saat kamu push ke branch 'main'
-  pull_request:
-    branches:
-      - main  # Workflow ini akan dijalankan saat ada pull request ke branch 'main'
-  workflow_dispatch:  # Menambahkan opsi untuk menjalankan workflow secara manual
-
+  workflow_dispatch:
 jobs:
-  newman-test:
+  test:
+    defaults:
+      run:
+        working-directory: ./tests
+    environment: staging
+    name: "Run tests"
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: '16'
-
-      - name: Install Newman
+          node-version: "18"
+      - name: "Install newman"
+        run: "npm install -g newman"
+      - name: "Install newman reporter"
+        run: "npm install -g newman-reporter-htmlextra"
+      - name: "Run tests"
         run: |
-          npm install -g newman
-
-      - name: Run Newman tests
-        run: |
-          newman run tests/NewmanDemo.postman_collection.json -e tests/ReqResdev.postman_environtment.json
+          newman run NewmanDemo.postman_collection.json -e ReqResDev.postman_environment.json \
+            -r htmlextra --reporter-htmlextra-export htmlreport.html --reporter-htmlextra-darkTheme > runreport1.html
