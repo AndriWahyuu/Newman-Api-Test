@@ -28,7 +28,7 @@ jobs:
         run: |
           npm install -g newman  # Install Newman secara global
 
-      # Langkah keempat: Jalankan Newman tests
+      # Langkah keempat: Jalankan Newman tests dengan path yang benar
       - name: Run Newman tests
         run: |
-          newman run collection.json -e environment.json  # Menjalankan koleksi dan environment yang sudah diekspor
+          newman run tests/collection.json -e tests/environment.json  # Jalankan koleksi dan environment yang ada di folder 'tests'
