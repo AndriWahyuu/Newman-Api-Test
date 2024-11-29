@@ -1,23 +1,27 @@
 name: Newman API Tests
-on:
+on: 
   workflow_dispatch:
-jobs:
-  test:
-    defaults:
-      run:
+jobs: 
+  test: 
+    defaults: 
+      run: 
         working-directory: ./tests
     environment: staging
     name: "Run tests"
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
+    steps: 
+      - 
+        uses: actions/checkout@v2
+      - 
+        uses: actions/setup-node@v2
+        with: 
           node-version: "18"
-      - name: "Install newman"
+      - 
+        name: "Install newman"
         run: "npm install -g newman"
-      - name: "Install newman reporter"
+      - 
+        name: "Install newman reporter"
         run: "npm install -g newman-reporter-htmlextra"
-      - name: "Run tests"
-        run: |
-          newman run NewmanDemo.postman_collection.json -e ReqResdev.postman_environment.json -r htmlextra - reporter-htmlextra-export htmlreport.htmlextra-darktheme > runreport1.html
+      - 
+        name: "Run tests"
+        run: "newman run NewmanDemo.postman_collection.json -e ReqResDev.postman_environment.json  -r htmlextra --reporter-htmlextra-export htmlreport.html --reporter-htmlextra-darkTheme  > runreport1.html"
