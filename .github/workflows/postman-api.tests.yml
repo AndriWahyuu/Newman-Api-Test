@@ -3,32 +3,29 @@ name: Newman API Tests
 on:
   push:
     branches:
-      - main   # Workflow ini akan dijalankan saat kamu push ke branch 'main'
+      - main  # Workflow ini akan dijalankan saat kamu push ke branch 'main'
   pull_request:
     branches:
-      - main   # Workflow ini juga akan dijalankan saat ada pull request ke branch 'main'
+      - main  # Workflow ini akan dijalankan saat ada pull request ke branch 'main'
+  workflow_dispatch:  # Menambahkan opsi untuk menjalankan workflow secara manual
 
 jobs:
   newman-test:
-    runs-on: ubuntu-latest  # Menjalankan di lingkungan Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
-      # Langkah pertama: Checkout kode dari GitHub
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Langkah kedua: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Menentukan versi Node.js yang digunakan (misalnya, versi 16)
+          node-version: '16'
 
-      # Langkah ketiga: Install Newman
       - name: Install Newman
         run: |
-          npm install -g newman  # Install Newman secara global
+          npm install -g newman
 
-      # Langkah keempat: Jalankan Newman tests dengan path yang benar
       - name: Run Newman tests
         run: |
-          newman run tests/collection.json -e tests/environment.json  # Jalankan koleksi dan environment yang ada di folder 'tests'
+          newman run tests/NewmanDemo.postman_collection.json -e tests/ReqResdev.postman_environtment.json
