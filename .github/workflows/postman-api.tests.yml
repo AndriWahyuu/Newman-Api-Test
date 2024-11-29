@@ -1,0 +1,34 @@
+name: Newman API Tests
+
+on:
+  push:
+    branches:
+      - main   # Workflow ini akan dijalankan saat kamu push ke branch 'main'
+  pull_request:
+    branches:
+      - main   # Workflow ini juga akan dijalankan saat ada pull request ke branch 'main'
+
+jobs:
+  newman-test:
+    runs-on: ubuntu-latest  # Menjalankan di lingkungan Ubuntu
+
+    steps:
+      # Langkah pertama: Checkout kode dari GitHub
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Langkah kedua: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Menentukan versi Node.js yang digunakan (misalnya, versi 16)
+
+      # Langkah ketiga: Install Newman
+      - name: Install Newman
+        run: |
+          npm install -g newman  # Install Newman secara global
+
+      # Langkah keempat: Jalankan Newman tests
+      - name: Run Newman tests
+        run: |
+          newman run collection.json -e environment.json  # Menjalankan koleksi dan environment yang sudah diekspor
